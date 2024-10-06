@@ -123,9 +123,38 @@ class Tree{
         return rightNode
     }
     find(value){
-        
-    }
+        let currentNode = this.root;
+        while(currentNode !== undefined){
+            if(value == currentNode.data){return currentNode}
+            if(value < currentNode.data){
+                currentNode = currentNode.left;
+            }
+            else{
+                currentNode = currentNode.right;
+            }
+        }
+        //if cant find
+        return null
 
+    }
+    levelOrder(callback){
+        let currentNode = this.root;
+        let queue = []
+        queue.push(currentNode)
+        while (queue.length > 0) {
+            //print (callback) front of queue
+            const frontNode = queue.shift();
+            //invoke callback function
+            callback.call(this,frontNode);
+            //add children to queue
+            if(frontNode.left !==undefined){
+                queue.push(frontNode.left)
+            }
+            if(frontNode.right !==undefined){
+                queue.push(frontNode.right)
+            }
+        }
+    }
 }
 
 export {Tree}
