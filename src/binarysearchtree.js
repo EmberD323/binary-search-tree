@@ -18,8 +18,6 @@ class Tree{
         let duplciatesRemoved = sortedArray.filter((element,index)=>{
             return sortedArray.indexOf(element) === index
         });
-        console.log("array sorted and dupclicates removed")
-        console.log(duplciatesRemoved);
         this.root = this.buildTree(duplciatesRemoved);
     }
     buildTree(array){
@@ -60,6 +58,7 @@ class Tree{
         while(currentNode !== undefined){
             //do this until there is an empty node
             if(currentNode.left == undefined && currentNode.right == undefined){break}
+            if(value == currentNode.data){return}
 
             if(value < currentNode.data){
                 if(currentNode.left == undefined){break}
@@ -70,6 +69,7 @@ class Tree{
                 currentNode = currentNode.right;
             }
         }
+        if(value == currentNode.data){return}
         if(value<currentNode.data){
             currentNode.left = newNode;
         }
@@ -77,6 +77,55 @@ class Tree{
             currentNode.right = newNode
             }
     }
+    deleteItem(value,currentNode = this.root){
+        //base case
+        if(currentNode == undefined){
+            return currentNode
+        }
+
+        //if value is in this nodes subtree - traverse recursively until we find item
+        if(currentNode.data > value){
+            currentNode.left = this.deleteItem(value,currentNode.left)
+        }
+        else if(currentNode.data < value){
+            currentNode.right = this.deleteItem(value,currentNode.right)
+        }
+        //if currentNode.data matches value
+        else{
+            //case 1 delete and end node (no children) or only right child
+            if(currentNode.left == undefined && currentNode.right == undefined){
+                return undefined
+            }
+            //case 2 delete a node with 1 child
+            //return the child
+            if(currentNode.left == undefined && currentNode.right !== undefined){
+                return currentNode.right
+            }
+            if(currentNode.right == undefined && currentNode.left !==undefined){
+                return currentNode.left
+            }
+            //case 3 delete a child with 2 children
+            //get next biggest value 
+            let successorNode = this.getSuccessor(currentNode);
+            //change current notde tosuccesor node
+            currentNode.data = successorNode.data;
+            //delete original successorNode from tree
+            currentNode.right = this.deleteItem(successorNode.data,currentNode.right);
+        }
+        return currentNode
+
+    }
+    getSuccessor(node){
+        let rightNode = node.right;
+        while(rightNode !== undefined && rightNode.left !== undefined){
+            rightNode = rightNode.left
+        }
+        return rightNode
+    }
+    find(value){
+        
+    }
+
 }
 
 export {Tree}
