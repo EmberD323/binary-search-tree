@@ -5,7 +5,7 @@ let tree = new Tree(test);
 
 
 console.log(tree);
-tree.levelOrder(print);
+tree.postOrder(print);
 
 function print(node){
     console.log(node)

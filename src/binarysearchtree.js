@@ -138,9 +138,12 @@ class Tree{
 
     }
     levelOrder(callback){
-        let currentNode = this.root;
-        let queue = []
-        queue.push(currentNode)
+        if(typeof callback !== 'function'){
+            throw new Error("callback function must be supplied as an argument")
+        }
+        let root = this.root;
+        let queue = [];
+        queue.push(root)
         while (queue.length > 0) {
             //print (callback) front of queue
             const frontNode = queue.shift();
@@ -154,6 +157,64 @@ class Tree{
                 queue.push(frontNode.right)
             }
         }
+    }
+    inOrder(callback,currentNode=this.root){
+        if(typeof callback !== 'function'){
+            throw new Error("callback function must be supplied as an argument")
+        }
+        //base case
+        if (currentNode == undefined){return}
+        //left branch
+        if(currentNode.left !== undefined){
+            console.log(currentNode)
+            this.inOrder(callback,currentNode.left);
+        }
+        //root
+        callback.call(this,currentNode);
+        //rightbranch
+        if(currentNode.right !== undefined){
+            this.inOrder(callback,currentNode.right);
+        }
+        return
+    }
+    preOrder(callback,currentNode=this.root){
+        if(typeof callback !== 'function'){
+            throw new Error("callback function must be supplied as an argument")
+        }
+        //base case
+        if (currentNode == undefined){return}
+        //root
+        callback.call(this,currentNode);
+        //left branch
+        if(currentNode.left !== undefined){
+            this.preOrder(callback,currentNode.left);
+        }
+        
+        //rightbranch
+        if(currentNode.right !== undefined){
+            this.preOrder(callback,currentNode.right);
+        }
+        return
+    }
+    postOrder(callback,currentNode=this.root){
+        if(typeof callback !== 'function'){
+            throw new Error("callback function must be supplied as an argument")
+        }
+        //base case
+        if (currentNode == undefined){return}
+        
+        //left branch
+        if(currentNode.left !== undefined){
+            this.postOrder(callback,currentNode.left);
+        }
+        
+        //rightbranch
+        if(currentNode.right !== undefined){
+            this.postOrder(callback,currentNode.right);
+        }
+        //root
+        callback.call(this,currentNode);
+        return
     }
 }
 
