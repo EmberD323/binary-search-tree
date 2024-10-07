@@ -5,10 +5,20 @@ let tree = new Tree(test);
 
 
 console.log(tree);
-tree.postOrder(print);
 
-function print(node){
-    console.log(node)
-}
+
+let nodeTest9 = tree.find(9);
+console.log(nodeTest9);
+console.log(tree.depth(nodeTest9));
+
+let nodeTest67 = tree.find(67);
+console.log(nodeTest67);
+console.log(tree.depth(nodeTest67));
+
+
+// tree.postOrder(print);
+// function print(node){
+//     console.log(node)
+// }
 
 

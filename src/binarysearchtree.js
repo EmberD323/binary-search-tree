@@ -166,7 +166,6 @@ class Tree{
         if (currentNode == undefined){return}
         //left branch
         if(currentNode.left !== undefined){
-            console.log(currentNode)
             this.inOrder(callback,currentNode.left);
         }
         //root
@@ -215,6 +214,37 @@ class Tree{
         //root
         callback.call(this,currentNode);
         return
+    }
+    height(node){
+        if(node == undefined){
+            return -1
+        }
+        
+        let heightLeft = this.height(node.left);
+        let heightRight = this.height(node.right);
+
+        if(heightLeft>heightRight){
+            return heightLeft + 1;
+        }else{
+            return heightRight + 1;
+        }
+        
+    }
+    depth(node){
+        let currentNode = this.root;
+        let depth = 0;
+        while(currentNode !== undefined){
+            if(currentNode.data == node.data ){return depth}
+            if(node.data<currentNode.data){
+                depth += 1;
+                currentNode = currentNode.left;
+            }
+            else{
+                depth += 1;
+                currentNode = currentNode.right;
+            }
+        }
+        return depth;
     }
 }
 
