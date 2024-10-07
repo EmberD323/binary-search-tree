@@ -5,17 +5,12 @@ let tree = new Tree(test);
 
 
 console.log(tree);
+tree.insert(122);
+tree.insert(132);
 
-
-let nodeTest9 = tree.find(9);
-console.log(nodeTest9);
-console.log(tree.depth(nodeTest9));
-
-let nodeTest67 = tree.find(67);
-console.log(nodeTest67);
-console.log(tree.depth(nodeTest67));
-
-
+console.log(tree.isBalanced())
+tree.rebalance();
+console.log(tree)
 // tree.postOrder(print);
 // function print(node){
 //     console.log(node)

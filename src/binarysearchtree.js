@@ -246,6 +246,31 @@ class Tree{
         }
         return depth;
     }
+    isBalanced(){
+        let root =this.root;
+        let leftHeight = this.height(root.left);
+        console.log(leftHeight);
+        let rightHeigt = this.height(root.right);
+        console.log(rightHeigt)
+
+        if((leftHeight - rightHeigt) <= 1 && (leftHeight - rightHeigt) >= -1){return true}
+        return false
+
+    }
+    rebalance(){
+        if(this.isBalanced == true) {return this.root}
+        //minimum height possible
+        //traverse array and add to newarray, make a new tree build
+        let newTreeArray =[]
+        function pushToTree(node){
+            newTreeArray.push(node.data);
+        }
+        this.inOrder(pushToTree);
+        let newRoot = this.buildTree(newTreeArray);
+        this.root = newRoot;
+        return this.root
+
+    }
 }
 
 export {Tree}
